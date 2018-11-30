@@ -1,0 +1,4 @@
+fillit
+*.o
+test-fillit
+tmpfile.txt
