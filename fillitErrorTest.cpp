@@ -24,5 +24,9 @@ void fillitErrorTest::processTest()
 			(void)fn;
 			return mkSpCppStrVal("Stdout :\nerror\n");
 		};
-	testThisFun(baseFunction, testFunction, mkSpCstStrVal("error-test-01.txt"));
+	for (int i = 1; i <= 11; ++i)
+	{
+		std::string numVal = (i < 10 ? "0" : "") + std::to_string(i);
+		testThisFun(baseFunction, testFunction, mkSpCstStrVal(std::string("error-test-" + numVal + ".txt").c_str()));
+	}
 }
