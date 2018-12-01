@@ -10,24 +10,32 @@ void absTest::crashTestTheseFun(std::function<Tret(Tpar...)> baseFunToTest,
 								Tret *testRetToSet,
 								Tpar... params)
 {
-	pid_t baseChildPid = 0;
-	pid_t testChildPid = 0;
-	int baseChildStatus = 0;
-	int testChildStatus = 0;
-	if ((baseChildPid = fork()) == 0)
+	if (funToTestNeedCrashTest)
 	{
-		baseFunToTest(params...);
-		exit(0);
+		pid_t baseChildPid = 0;
+		pid_t testChildPid = 0;
+		int baseChildStatus = 0;
+		int testChildStatus = 0;
+		if ((baseChildPid = fork()) == 0)
+		{
+			baseFunToTest(params...);
+			exit(0);
+		}
+		if ((testChildPid = fork()) == 0)
+		{
+			testFunToTest(params...);
+			exit(0);
+		}
+		waitpid(baseChildPid, &baseChildStatus, 0);
+		waitpid(testChildPid, &testChildStatus, 0);
+		(*baseRetToSet)->setIsCrashVal(baseChildStatus != 0);
+		(*testRetToSet)->setIsCrashVal(testChildStatus != 0);
 	}
-	if ((testChildPid = fork()) == 0)
+	else
 	{
-		testFunToTest(params...);
-		exit(0);
+		(*baseRetToSet)->setIsCrashVal(false);
+		(*testRetToSet)->setIsCrashVal(false);
 	}
-	waitpid(baseChildPid, &baseChildStatus, 0);
-	waitpid(testChildPid, &testChildStatus, 0);
-	(*baseRetToSet)->setIsCrashVal(baseChildStatus != 0);
-	(*testRetToSet)->setIsCrashVal(testChildStatus != 0);
 }
 
 template <class Tret, class... Tpar>

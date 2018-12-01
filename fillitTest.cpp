@@ -7,6 +7,7 @@
 fillitTest::fillitTest()
 {
 	funToTestExist = true;
+	funToTestNeedCrashTest = false;
 	baseFunction =
 		[&](spCstStrVal fn)
 		{

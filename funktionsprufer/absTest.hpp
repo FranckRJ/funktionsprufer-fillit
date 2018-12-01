@@ -45,6 +45,7 @@ private:
 	void msgTestEnd();
 protected:
 	bool funToTestExist = false;
+	bool funToTestNeedCrashTest = true;
 	int testCount = 0;
 	int errCount = 0;
 };
