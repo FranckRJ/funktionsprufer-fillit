@@ -18,7 +18,7 @@ int fillitBasicTest::launchTest()
 
 void fillitBasicTest::processTest()
 {
-	for (int i = 1; i <= 3; ++i)
+	for (int i = 1; i <= 12; ++i)
 	{
 		std::string numVal = (i < 10 ? "0" : "") + std::to_string(i);
 		testThisFun(baseFunction, testFunction, mkSpCstStrVal(std::string("basic-test-" + numVal + ".txt").c_str()));
