@@ -20,5 +20,4 @@ void fillitBasicTest::processTest()
 {
 	testThisFun(baseFunction, testFunction, mkSpCstStrVal("basic-test-01.txt"));
 	testThisFun(baseFunction, testFunction, mkSpCstStrVal("basic-test-02.txt"));
-	testThisFun(baseFunction, testFunction, mkSpCstStrVal("basic-test-03.txt"));
 }
