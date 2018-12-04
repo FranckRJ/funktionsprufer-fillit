@@ -8,6 +8,7 @@
 #include "funktionsprufer/colors.hpp"
 #include "fillitBasicTest.hpp"
 #include "fillitErrorTest.hpp"
+#include "fillitLimitTest.hpp"
 
 static std::string HELP_INFOS =
 R"str(DESCRIPTION:
@@ -36,6 +37,7 @@ int main(int argc, char **argv)
 	std::cout << std::unitbuf;
 	testList.emplace("basic", std::bind(fillitBasicTest::launchTest));
 	testList.emplace("error", std::bind(fillitErrorTest::launchTest));
+	testList.emplace("limit", std::bind(fillitLimitTest::launchTest));
 
 	for (int i = 1; i < argc; ++i)
 	{
