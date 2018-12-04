@@ -58,10 +58,10 @@ for param in "$@"; do
 done
 
 if [[ "$getFillitFiles" == "true" ]]; then
-	rm -r "fillit"
+	rm -rf "fillit"
 	cp -R "${fillitPath}" "fillit"
-	make -C fillit
+	make -C fillit re
 fi
 if [[ "$makeTests" == "true" ]]; then
-	make -j4
+	make -j4 re
 fi
