@@ -24,6 +24,8 @@ void fillitErrorTest::processTest()
 			(void)fn;
 			return mkSpCppStrVal("Stdout :\nerror\n");
 		};
+	testThisFun(baseFunction, testFunction, mkSpCstStrVal(std::string("").c_str()));
+	testThisFun(baseFunction, testFunction, mkSpCstStrVal(std::string("fichier_inexistant").c_str()));
 	for (int i = 1; i <= 11; ++i)
 	{
 		std::string numVal = (i < 10 ? "0" : "") + std::to_string(i);
