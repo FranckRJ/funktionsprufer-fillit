@@ -99,22 +99,25 @@ int main(int argc, char **argv)
 		absTest::isVerbose = true;
 		for (int i = 1; i < argc; ++i)
 		{
-			std::string strToFind = argv[i];
-			std::map<std::string, std::function<int()>>::iterator it = testList.find(strToFind);
-
-			if (it != testList.end())
+			if (argv[i][0] != '-')
 			{
-				int tmpResult = it->second();
+				std::string strToFind = argv[i];
+				std::map<std::string, std::function<int()>>::iterator it = testList.find(strToFind);
 
-				if (tmpResult > 0)
+				if (it != testList.end())
 				{
-					errCount += tmpResult;
-					++nbOfTestsWithError;
+					int tmpResult = it->second();
+
+					if (tmpResult > 0)
+					{
+						errCount += tmpResult;
+						++nbOfTestsWithError;
+					}
 				}
-			}
-			else
-			{
-				std::cout << "Erreur : pas de tests nomme " << strToFind << "." << std::endl << std::endl;
+				else
+				{
+					std::cout << "Erreur : pas de tests nomme " << strToFind << "." << std::endl << std::endl;
+				}
 			}
 		}
 	}
