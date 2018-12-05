@@ -9,6 +9,7 @@
 #include "fillitBasicTest.hpp"
 #include "fillitErrorTest.hpp"
 #include "fillitLimitTest.hpp"
+#include "fillitAdvancedErrorTest.hpp"
 
 static std::string HELP_INFOS =
 R"str(DESCRIPTION:
@@ -38,6 +39,7 @@ int main(int argc, char **argv)
 	testList.emplace("basic", std::bind(fillitBasicTest::launchTest));
 	testList.emplace("error", std::bind(fillitErrorTest::launchTest));
 	testList.emplace("limit", std::bind(fillitLimitTest::launchTest));
+	testList.emplace("advanced-error", std::bind(fillitAdvancedErrorTest::launchTest));
 
 	for (int i = 1; i < argc; ++i)
 	{
@@ -126,7 +128,7 @@ int main(int argc, char **argv)
 	else
 	{
 		std::cout << colors::red();
-		std::cout << "Erreurs : " << errCount << ". Tests concernees : " << nbOfTestsWithError << ".";
+		std::cout << "Erreurs : " << errCount << ". Tests concernes : " << nbOfTestsWithError << ".";
 	}
 	std::cout << colors::reset() << std::endl;
 
