@@ -13,6 +13,12 @@ fillitTest::fillitTest()
 		{
 			return mkSpCppStrVal("Stdout :\n" + openFile::getThisFileContent("result-" + std::string(fn->getVal())));
 		};
+	baseErrorFunction =
+		[&](spCstStrVal fn)
+		{
+			(void)fn;
+			return mkSpCppStrVal("Stdout :\nerror\n");
+		};
 	testFunction =
 		[&](spCstStrVal fn)
 		{

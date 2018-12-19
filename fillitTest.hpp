@@ -11,6 +11,7 @@ public:
 	fillitTest();
 protected:
 	std::function<spCppStrVal(spCstStrVal)> baseFunction;
+	std::function<spCppStrVal(spCstStrVal)> baseErrorFunction;
 	std::function<spCppStrVal(spCstStrVal)> testFunction;
 };
 

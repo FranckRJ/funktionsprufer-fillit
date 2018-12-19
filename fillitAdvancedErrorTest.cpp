@@ -18,15 +18,9 @@ int fillitAdvancedErrorTest::launchTest()
 
 void fillitAdvancedErrorTest::processTest()
 {
-	baseFunction =
-		[&](spCstStrVal fn)
-		{
-			(void)fn;
-			return mkSpCppStrVal("Stdout :\nerror\n");
-		};
 	for (int i = 1; i <= 10; ++i)
 	{
 		std::string numVal = (i < 10 ? "0" : "") + std::to_string(i);
-		testThisFun(baseFunction, testFunction, mkSpCstStrVal(std::string("advanced-error-test-" + numVal + ".txt").c_str()));
+		testThisFun(baseErrorFunction, testFunction, mkSpCstStrVal(std::string("advanced-error-test-" + numVal + ".txt").c_str()));
 	}
 }
