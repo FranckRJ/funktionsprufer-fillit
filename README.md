@@ -1,7 +1,9 @@
 Ein ekelhafter Code, eine wackelige Schnittstelle, aber mehr oder weniger strenge Tests.
 
-`./init_fillit.sh <pfad_zur_fillit>` um die Tests zu initialisieren.  
-`--help` für Hilfe.
+Votre dossier fillit doit etre totalement distinct du dossier funktionsprufer-fillit, l'un ne doit pas etre le parent de l'autre.  
+Executez `./init_fillit.sh <chemin_vers_fillit>` pour initialiser les tests.  
+Executez `./test-fillit` pour lancer les tests.  
+`--help` avec l'une ou l'autre des commandes pour l'aide la concernant.
 
 Die Kartoffeln mit ein EL Salz und ein EL Kümmel kochen. Abgießen, abschrecken, etwas abkühlen lassen und lauwarm pellen.
 
