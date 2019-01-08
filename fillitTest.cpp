@@ -56,6 +56,7 @@ fillitTest::fillitTest()
 			select_ret = select(0, NULL, NULL, NULL, &timeout);
 			signal(SIGCHLD, SIG_DFL);
 
+			kill(childPid, SIGKILL);
 			if (select_ret == 0)
 			{
 				return mkSpCppStrVal("TIMEOUT (> 5s)");
