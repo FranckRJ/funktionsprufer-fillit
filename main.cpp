@@ -21,8 +21,6 @@ LISTE DES COMMANDES:
                           seront testes.
 -r<nom_du_test>           Desactive ce test en mode non-verbeux.
 --erronly                 Affiche uniquement les tests echoues lors du mode verbeux.
---nocrashtest             N'effectue pas les tests qui doivent crasher.
---nouncleartest           N'effectue pas les tests dont le resultat n'est pas clair.
 --nocolor                 Desactive l'affichage avec des couleurs.
 --help                    Affiche cette page d'aide.)str";
 
@@ -54,14 +52,6 @@ int main(int argc, char **argv)
 			else if (curArg == "--erronly")
 			{
 				absTest::showOnlyErrors = true;
-			}
-			else if (curArg == "--nocrashtest")
-			{
-				absTest::dontDoTestThatCrash = true;
-			}
-			else if (curArg == "--nouncleartest")
-			{
-				absTest::dontDoUnclearTest = true;
 			}
 			else if (curArg == "--nocolor")
 			{
