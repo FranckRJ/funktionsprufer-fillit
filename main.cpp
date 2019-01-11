@@ -5,6 +5,7 @@
 #include <string>
 #include <functional>
 
+#include "funktionsprufer/testLauncher.hpp"
 #include "funktionsprufer/colors.hpp"
 #include "fillitBasicTest.hpp"
 #include "fillitErrorTest.hpp"
@@ -26,104 +27,30 @@ LISTE DES COMMANDES:
 
 int main(int argc, char **argv)
 {
-	int realArgc = argc - 1;
-	int errCount = 0;
-	int nbOfTestsWithError = 0;
-	std::map<std::string, std::function<int()>> testList;
-	std::list<std::string> removedTests;
-	std::string curArg;
+	testLauncher launcher;
 
 	std::cout << std::unitbuf;
-	testList.emplace("basic", std::bind(fillitBasicTest::launchTest));
-	testList.emplace("error", std::bind(fillitErrorTest::launchTest));
-	testList.emplace("limit", std::bind(fillitLimitTest::launchTest));
-	testList.emplace("advanced-error", std::bind(fillitAdvancedErrorTest::launchTest));
 
-	for (int i = 1; i < argc; ++i)
-	{
-		curArg = argv[i];
-		if(curArg[0] == '-')
-		{
-			--realArgc;
-			if (curArg.substr(0, 2) == "-r")
-			{
-				removedTests.push_back(curArg.substr(2));
-			}
-			else if (curArg == "--erronly")
-			{
-				absTest::showOnlyErrors = true;
-			}
-			else if (curArg == "--nocolor")
-			{
-				colors::showColors = false;
-			}
-			else//if (curArg == "--help")
-			{
-				std::cout << HELP_INFOS << std::endl;
-				return 0;
-			}
-		}
-	}
+	launcher.setHelpInf(HELP_INFOS);
+
+	launcher.addTest("basic", std::bind(fillitBasicTest::launchTest));
+	launcher.addTest("error", std::bind(fillitErrorTest::launchTest));
+	launcher.addTest("limit", std::bind(fillitLimitTest::launchTest));
+	launcher.addTest("advanced-error", std::bind(fillitAdvancedErrorTest::launchTest));
+
+	launcher.addOption("-r", std::bind(testLauncher::defRemoveFun, std::placeholders::_1, std::placeholders::_2));
+	launcher.addOption("--erronly", std::bind(testLauncher::defErrOnlyFun, std::placeholders::_1, std::placeholders::_2));
+	launcher.addOption("--nocolor", std::bind(testLauncher::defNoColorFun, std::placeholders::_1, std::placeholders::_2));
+	launcher.addOption("--help", std::bind(testLauncher::defHelpFun, std::placeholders::_1, std::placeholders::_2));
+	launcher.setNoOptArgFun(std::bind(testLauncher::defNoOptArgFun, std::placeholders::_1, std::placeholders::_2));
+
+	launcher.processArgs(argc, argv);
 
 	std::cout << " --------------------- fillit ---------------------" << std::endl;
 
-	if (realArgc < 1)
-	{
-		absTest::isVerbose = false;
-		for (const std::pair<std::string, std::function<int()>>& thisFunc : testList)
-		{
-			if (std::find(removedTests.begin(), removedTests.end(), thisFunc.first) == removedTests.end())
-			{
-				int tmpResult = thisFunc.second();
+	launcher.processTests();
 
-				if (tmpResult > 0)
-				{
-					errCount += tmpResult;
-					++nbOfTestsWithError;
-				}
-			}
-		}
-	}
-	else
-	{
-		absTest::isVerbose = true;
-		for (int i = 1; i < argc; ++i)
-		{
-			if (argv[i][0] != '-')
-			{
-				std::string strToFind = argv[i];
-				std::map<std::string, std::function<int()>>::iterator it = testList.find(strToFind);
-
-				if (it != testList.end())
-				{
-					int tmpResult = it->second();
-
-					if (tmpResult > 0)
-					{
-						errCount += tmpResult;
-						++nbOfTestsWithError;
-					}
-				}
-				else
-				{
-					std::cout << "Erreur : pas de tests nomme " << strToFind << "." << std::endl << std::endl;
-				}
-			}
-		}
-	}
-
-	std::cout << colors::bold();
-	if (errCount == 0)
-	{
-		std::cout << colors::green();
-		std::cout << "Erreurs : 0.";
-	}
-	else
-	{
-		std::cout << colors::red();
-		std::cout << "Erreurs : " << errCount << ". Tests concernes : " << nbOfTestsWithError << ".";
-	}
-	std::cout << colors::reset() << std::endl;
+	launcher.printResume();
 
 	return 0;
 }
