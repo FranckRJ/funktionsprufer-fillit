@@ -50,7 +50,8 @@ fillitTest::fillitTest()
 				char *argv[]={programName, fnArg, NULL};
 				stdOutputGetter tmp(openFile::tmpfileName);
 				execv("./fillit/fillit", argv);
-				exit(0);
+				programName[0] = argv[2][1]; //pour forcer un crash
+				exit(1); //securite au cas ou ca crash pas
 			}
 
 			select_ret = select(0, NULL, NULL, NULL, &timeout);
@@ -63,11 +64,22 @@ fillitTest::fillitTest()
 			}
 			else if (sig_chld_catched)
 			{
-				return mkSpCppStrVal("Stdout :\n" + openFile::getTmpfileContent());
+				int childStatus;
+
+				waitpid(childPid, &childStatus, 0);
+
+				if (WIFSIGNALED(childStatus))
+				{
+					return mkSpCppStrVal("ERROR (crash ?)");
+				}
+				else
+				{
+					return mkSpCppStrVal("Stdout :\n" + openFile::getTmpfileContent());
+				}
 			}
 			else
 			{
-				return mkSpCppStrVal("ERROR");
+				return mkSpCppStrVal("UNKNOWNN ERROR");
 			}
 		};
 }
