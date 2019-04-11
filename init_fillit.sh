@@ -1,3 +1,5 @@
+#!/bin/bash
+
 getFillitFiles="true"
 makeTests="true"
 fillitPath="../fillit"
