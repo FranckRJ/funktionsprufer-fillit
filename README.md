@@ -1,5 +1,3 @@
-Ein ekelhafter Code, eine wackelige Schnittstelle, aber mehr oder weniger strenge Tests.
-
 Votre dossier fillit doit etre totalement distinct du dossier funktionsprufer-fillit, l'un ne doit pas etre le parent de l'autre.  
 Executez `./init_fillit.sh <chemin_vers_fillit>` pour initialiser les tests.  
 Executez `./test-fillit` pour lancer les tests.  
@@ -15,4 +13,4 @@ In eine große Schüssel immer abwechselnd Pellkartoffelscheiben, Gurke und Apfe
 
 Am Schluss sollte es so sein, dass etwas zu viel Marinade im Salat steht. Der Salat sollte unbedingt mindestens drei – vier Stunden, besser noch über Nacht, durchziehen. Während dieser Zeit wird die Marinade vom Salat völlig aufgenommen und die Kartoffeln schmecken dadurch sehr saftig und werden nicht matschig. Danach gut mischen.
 
-Kurz vor dem Servieren den Schnittlauch oder die Frühlingszwiebeln in kleine Röllchen schneiden und unter den Salat heben. 
+Kurz vor dem Servieren den Schnittlauch oder die Frühlingszwiebeln in kleine Röllchen schneiden und unter den Salat heben.
